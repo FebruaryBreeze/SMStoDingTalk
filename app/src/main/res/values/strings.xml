@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SMS to DingTalk</string>
+    <string name="set_button_name">Set</string>
+    <string name="token_input_hint">Enter DingTalk Robot Token</string>
+    <string name="current_token_hint">Current Token is:</string>
+    <string name="default_token">[Empty]</string>
 </resources>
