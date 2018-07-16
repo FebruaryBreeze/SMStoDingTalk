@@ -26,7 +26,6 @@ import java.util.Objects;
 public class SMSListener extends BroadcastReceiver {
     private static final String TAG = "SMSListener";
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
-    private static final String Robot_Url = "https://oapi.dingtalk.com/robot/send?access_token=";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -63,7 +62,8 @@ public class SMSListener extends BroadcastReceiver {
     }
 
     private void sendMessage(String message, Context context) {
-        String dingTalkToken = MySingleton.getInstance(context).getDingTalkToken();
+        Preferences preferences = new Preferences(context);
+        String dingTalkToken = preferences.getDingTalkToken();
         if (dingTalkToken.equals("")) {
             return;
         }
@@ -81,7 +81,7 @@ public class SMSListener extends BroadcastReceiver {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
-                Robot_Url + dingTalkToken,
+                Constant.Ding_Talk_Robot_Url + dingTalkToken,
                 root,
                 new Response.Listener<JSONObject>() {
                     @Override

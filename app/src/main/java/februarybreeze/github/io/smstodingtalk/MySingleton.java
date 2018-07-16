@@ -10,11 +10,9 @@ public class MySingleton {
     private static MySingleton mInstance;
     private static Context mCtx;
     private RequestQueue requestQueue;
-    private String dingTalkToken;
 
     private MySingleton(Context context) {
         mCtx = context;
-        dingTalkToken = "";
         requestQueue = getRequestQueue();
     }
 
@@ -34,13 +32,5 @@ public class MySingleton {
 
     public <T> void addToRequestQueue(Request<T> request) {
         requestQueue.add(request);
-    }
-
-    public String getDingTalkToken() {
-        return dingTalkToken;
-    }
-
-    public void setDingTalkToken(String token) {
-        dingTalkToken = token;
     }
 }
