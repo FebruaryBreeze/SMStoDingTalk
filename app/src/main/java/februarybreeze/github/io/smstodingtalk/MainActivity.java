@@ -1,5 +1,6 @@
 package februarybreeze.github.io.smstodingtalk;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
             TextView tokenView = (TextView) findViewById(R.id.tokenView);
             tokenView.setText(token);
         }
+
+        startService(new Intent(getBaseContext(), MainService.class));
     }
 
     public void setDingTalkToken(View view) {

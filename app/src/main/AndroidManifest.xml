@@ -29,6 +29,7 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.INTERNET" />
+        <service android:name=".MainService" />
     </application>
 
 </manifest>
