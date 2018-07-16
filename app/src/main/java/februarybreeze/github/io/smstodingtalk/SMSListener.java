@@ -7,15 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.util.Log;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +15,6 @@ import java.util.Objects;
 
 
 public class SMSListener extends BroadcastReceiver {
-    private static final String TAG = "SMSListener";
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
 
     @Override
@@ -45,7 +35,7 @@ public class SMSListener extends BroadcastReceiver {
                 }
 
                 String text = body.toString() + "[" + senderNumber + ", " + date + "]";
-                sendMessage(text, context);
+                startSmsService(context, text);
             }
         }
     }
@@ -61,40 +51,9 @@ public class SMSListener extends BroadcastReceiver {
         }
     }
 
-    private void sendMessage(String message, Context context) {
-        Preferences preferences = new Preferences(context);
-        String dingTalkToken = preferences.getDingTalkToken();
-        if (dingTalkToken.equals("")) {
-            return;
-        }
-
-        final JSONObject root = new JSONObject();
-        try {
-            JSONObject content = new JSONObject();
-            content.put("content", message);
-
-            root.put("msgtype", "text");
-            root.put("text", content);
-        } catch (JSONException e) {
-            Log.d(TAG, e.toString());
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                Constant.Ding_Talk_Robot_Url + dingTalkToken,
-                root,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        );
-
-        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    private void startSmsService(Context context, String message) {
+        Intent serviceIntent = new Intent(context, DingTalkService.class);
+        serviceIntent.putExtra(Constant.SMS_Message, message);
+        context.startService(serviceIntent);
     }
 }

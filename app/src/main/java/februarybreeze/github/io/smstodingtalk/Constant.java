@@ -5,4 +5,6 @@ public class Constant {
 
     public static final String Ding_Talk_Robot_Token = "ding_talk_token";
     public static final String Ding_Talk_Robot_Url = "https://oapi.dingtalk.com/robot/send?access_token=";
+
+    public static final String SMS_Message = "sms_message";
 }
