@@ -29,7 +29,7 @@ public class DingTalkService extends IntentService {
         }
 
         Preferences preferences = new Preferences(this);
-        String token = preferences.getDingTalkToken();
+        String token = preferences.getDingTalkNoticedToken();
 
         String message = intent.getStringExtra(Constant.SMS_Message);
         sendMessage(token, message);
