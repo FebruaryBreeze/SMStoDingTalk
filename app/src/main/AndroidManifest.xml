@@ -30,6 +30,7 @@
             android:exported="true"
             android:permission="android.permission.INTERNET" />
         <service android:name=".MainService" />
+        <service android:name=".FilterService" />
     </application>
 
 </manifest>

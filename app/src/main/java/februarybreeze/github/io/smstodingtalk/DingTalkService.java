@@ -2,6 +2,7 @@ package februarybreeze.github.io.smstodingtalk;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.support.annotation.Nullable;
 
@@ -28,15 +29,13 @@ public class DingTalkService extends IntentService {
             return;
         }
 
-        Preferences preferences = new Preferences(this);
-        String token = preferences.getDingTalkNoticedToken();
-
+        String token = intent.getStringExtra(Constant.Current_Ding_Talk_Token);
         String message = intent.getStringExtra(Constant.SMS_Message);
         sendMessage(token, message);
     }
 
     private void sendMessage(String dingTalkToken, String message) {
-        if (dingTalkToken.equals("")) {
+        if (TextUtils.isEmpty(dingTalkToken)) {
             return;
         }
 

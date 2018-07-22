@@ -52,7 +52,7 @@ public class SMSListener extends BroadcastReceiver {
     }
 
     private void startSmsService(Context context, String message) {
-        Intent serviceIntent = new Intent(context, DingTalkService.class);
+        Intent serviceIntent = new Intent(context, FilterService.class);
         serviceIntent.putExtra(Constant.SMS_Message, message);
         context.startService(serviceIntent);
     }
